@@ -1,0 +1,159 @@
+/* src/templates/saas/(seoghost)/_components/blog/ArticleContent.module.css
+   Styles the HTML body of an article without depending on @tailwindcss/typography. */
+
+.articleContent {
+  color: #334155;
+  font-size: 1.0625rem;
+  line-height: 1.85;
+}
+
+.articleContent > *:first-child {
+  margin-top: 0;
+}
+
+.articleContent h1 {
+  display: none; /* the page already renders the article title as its h1 */
+}
+
+.articleContent h2 {
+  margin: 2.75rem 0 1rem;
+  color: #0f172a;
+  font-size: 1.75rem;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  scroll-margin-top: 6rem;
+}
+
+.articleContent h3 {
+  margin: 2rem 0 0.75rem;
+  color: #0f172a;
+  font-size: 1.3rem;
+  font-weight: 650;
+  line-height: 1.35;
+  scroll-margin-top: 6rem;
+}
+
+.articleContent h4 {
+  margin: 1.5rem 0 0.5rem;
+  color: #0f172a;
+  font-size: 1.1rem;
+  font-weight: 650;
+}
+
+.articleContent p {
+  margin: 0 0 1.25rem;
+}
+
+.articleContent a {
+  color: var(--sg-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.articleContent a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.articleContent strong {
+  color: #0f172a;
+  font-weight: 650;
+}
+
+.articleContent ul,
+.articleContent ol {
+  margin: 0 0 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.articleContent ul {
+  list-style: disc;
+}
+
+.articleContent ol {
+  list-style: decimal;
+}
+
+.articleContent li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.articleContent li::marker {
+  color: var(--sg-accent);
+}
+
+.articleContent blockquote {
+  margin: 1.75rem 0;
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  border-left: 3px solid var(--sg-accent);
+  color: #475569;
+  font-style: italic;
+}
+
+.articleContent img {
+  max-width: 100%;
+  height: auto;
+  margin: 2rem 0;
+  border-radius: 0.75rem;
+}
+
+.articleContent code {
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.25rem;
+  background: #f1f5f9;
+  font-size: 0.9em;
+}
+
+.articleContent pre {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.articleContent pre code {
+  padding: 0;
+  background: none;
+  color: inherit;
+}
+
+.articleContent hr {
+  margin: 2.5rem 0;
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Wide tables scroll on small screens instead of breaking the layout. */
+.articleContent table {
+  display: block;
+  width: 100%;
+  margin: 2rem 0;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.articleContent th {
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid #e2e8f0;
+  color: #0f172a;
+  font-weight: 650;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.articleContent td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+
+.articleContent tbody tr:hover {
+  background: #f8fafc;
+}
