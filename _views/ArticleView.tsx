@@ -11,7 +11,6 @@ import CoverImage from '../_components/blog/CoverImage';
 import FooterBlock from '../_components/blog/FooterBlock';
 import PoweredByBadge from '../_components/blog/PoweredByBadge';
 import RelatedArticles from '../_components/blog/RelatedArticles';
-import styles from '../_components/blog/ArticleContent.module.css';
 import { appearanceOf } from '../_lib/appearance';
 import { isArticleCtaVisible, splitAtFirstH2 } from '../_lib/article-cta';
 import { formatDate } from '../_lib/format';
@@ -75,7 +74,7 @@ export default function ArticleView({ article, related, site, basePath, t, previ
 
       <Link
         href={basePath}
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-slate-900"
+        className="sg-back-link inline-flex items-center gap-1.5"
       >
         <span aria-hidden="true">←</span> {t.backToBlog}
       </Link>
@@ -83,18 +82,18 @@ export default function ArticleView({ article, related, site, basePath, t, previ
       <article className="mt-8">
         <header className="mx-auto max-w-5xl text-center">
           <CategoryLink tag={article.tags[0]} basePath={basePath} fallbackLabel={t.defaultCategory} />
-          <h1 className="mt-3 text-4xl font-semibold leading-tight tracking-tight text-slate-900 md:text-5xl">
+          <h1 className="sg-h1 mt-3">
             {article.title}
           </h1>
           {article.excerpt ? (
-            <p className="mt-5 text-lg leading-8 text-slate-600">{article.excerpt}</p>
+            <p className="sg-lead mt-5">{article.excerpt}</p>
           ) : null}
 
           <div className="mt-8 flex flex-col items-center gap-3">
             {authorName ? (
               <div className="flex items-center gap-3">
                 {authorAvatarUrl ? (
-                  <Image src={authorAvatarUrl} alt="" width={48} height={48} className="h-12 w-12 flex-none rounded-full object-cover" />
+                  <Image src={authorAvatarUrl} alt="" width={48} height={48} className="sg-avatar h-12 w-12 flex-none" />
                 ) : null}
                 <div className="flex flex-col items-start text-left">
                   {authorProfileUrl ? (
@@ -102,18 +101,18 @@ export default function ArticleView({ article, related, site, basePath, t, previ
                       href={authorProfileUrl}
                       target="_blank"
                       rel="author noopener"
-                      className="text-lg font-semibold leading-tight text-slate-900 hover:underline"
+                      className="sg-author-name"
                     >
                       {authorName}
                     </a>
                   ) : (
-                    <span className="text-lg font-semibold leading-tight text-slate-900">{authorName}</span>
+                    <span className="sg-author-name">{authorName}</span>
                   )}
-                  {authorBio ? <p className="max-w-md text-sm text-slate-500">{authorBio}</p> : null}
+                  {authorBio ? <p className="sg-meta max-w-md">{authorBio}</p> : null}
                 </div>
               </div>
             ) : null}
-            <div className="flex items-center gap-3 text-sm text-slate-500">
+            <div className="sg-meta flex items-center gap-3">
               <time dateTime={article.published_at}>{formatDate(article.published_at, t.dateLocale)}</time>
               <span aria-hidden="true">·</span>
               <span>
@@ -129,7 +128,7 @@ export default function ArticleView({ article, related, site, basePath, t, previ
             alt={article.cover_alt ?? article.title}
             sizes="(min-width: 1024px) 1024px, 100vw"
             priority
-            className="aspect-[16/9] rounded-2xl"
+            className="aspect-[16/9] sg-media"
           />
           <CoverCredit credit={article.cover_credit} t={t} />
         </div>
@@ -143,17 +142,17 @@ export default function ArticleView({ article, related, site, basePath, t, previ
           <div className="mx-auto w-full max-w-3xl xl:mx-0">
             {cta && parts ? (
               <>
-                <div className={styles.articleContent} dangerouslySetInnerHTML={{ __html: parts.before }} />
+                <div className="sg-prose" dangerouslySetInnerHTML={{ __html: parts.before }} />
                 <ArticleCtaBlock
                   cta={cta}
                   accent={appearanceOf(site).accent}
                   articleSlug={article.slug}
                   locale={site?.language ?? 'en'}
                 />
-                {parts.after ? <div className={styles.articleContent} dangerouslySetInnerHTML={{ __html: parts.after }} /> : null}
+                {parts.after ? <div className="sg-prose" dangerouslySetInnerHTML={{ __html: parts.after }} /> : null}
               </>
             ) : (
-              <div className={styles.articleContent} dangerouslySetInnerHTML={{ __html: html }} />
+              <div className="sg-prose" dangerouslySetInnerHTML={{ __html: html }} />
             )}
           </div>
         </div>

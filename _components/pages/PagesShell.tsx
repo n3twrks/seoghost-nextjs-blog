@@ -1,15 +1,17 @@
 // src/templates/saas/(seoghost)/_components/pages/PagesShell.tsx
 //
 // Wrapper of every programmatic page. It renders inside your own layouts, so
-// your header, footer, fonts and translations apply; only the accent is set.
+// your header, footer, fonts, text colour and translations apply; only the accent is set.
+// Loads the kit's default styles; your theme (src/styles/seoghost.theme.css) overrides them.
 import type { ReactNode } from 'react';
 
 import { shellStyle } from '../../_lib/appearance';
+import '../seoghost.base.css';
 
 export default function PagesShell({ accent, children }: { accent: string | null | undefined; children: ReactNode }) {
   return (
-    <div className="antialiased" style={shellStyle(accent)}>
-      <div className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">{children}</div>
+    <div className="sg-pages" style={shellStyle(accent)}>
+      <div className="sg-container-pages">{children}</div>
     </div>
   );
 }

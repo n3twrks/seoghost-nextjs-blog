@@ -26,12 +26,12 @@ export default function PoweredByBadge({ site, t }: Props) {
   const params = new URLSearchParams({ utm_source: site.domain ?? 'blog', utm_medium: 'blog-badge' });
 
   return (
-    <div className="mt-16 flex justify-center border-t border-slate-200 pt-8">
+    <div className="sg-divider mt-16 flex justify-center border-t pt-8">
       <a
         href={`${SEOGHOST_URL}/?${params}`}
         target="_blank"
         rel="noopener"
-        className="inline-flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-slate-900"
+        className="sg-badge inline-flex items-center gap-2"
       >
         {/* Plain <img>: the template must not depend on next/image remote patterns. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}

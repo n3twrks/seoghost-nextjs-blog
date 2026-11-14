@@ -9,13 +9,13 @@ export default function CoverCredit({ credit, t }: { credit: CoverCreditData | n
   if (!credit) return null;
 
   return (
-    <p className="mt-2 text-xs text-slate-400">
+    <p className="sg-caption mt-2">
       {t.photoBy}{' '}
-      <a href={credit.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">
+      <a href={credit.url} target="_blank" rel="noopener noreferrer">
         {credit.name}
       </a>{' '}
       {t.on}{' '}
-      <a href={UNSPLASH_URL} target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">
+      <a href={UNSPLASH_URL} target="_blank" rel="noopener noreferrer">
         Unsplash
       </a>
     </p>

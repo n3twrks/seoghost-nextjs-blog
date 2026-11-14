@@ -21,19 +21,19 @@ export default function ArticleCard({ article, basePath, t }: Props) {
           src={article.cover_image_url}
           alt={article.cover_alt ?? article.title}
           sizes="(min-width: 1024px) 384px, (min-width: 640px) 50vw, 100vw"
-          className="aspect-[16/10] rounded-xl"
+          className="aspect-[16/10] sg-media-sm"
         />
       </Link>
 
       <div className="flex flex-1 flex-col gap-2">
         <CategoryLink tag={article.tags[0]} basePath={basePath} fallbackLabel={t.defaultCategory} />
-        <h3 className="text-lg font-semibold leading-snug tracking-tight text-slate-900">
-          <Link href={`${basePath}/${article.slug}`} className="hover:text-[color:var(--sg-accent)]">
+        <h3 className="sg-h4">
+          <Link href={`${basePath}/${article.slug}`} className="sg-title-link">
             {article.title}
           </Link>
         </h3>
         {article.excerpt ? (
-          <p className="line-clamp-2 text-sm leading-6 text-slate-600">{article.excerpt}</p>
+          <p className="sg-small line-clamp-2">{article.excerpt}</p>
         ) : null}
       </div>
 

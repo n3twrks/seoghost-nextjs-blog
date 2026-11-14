@@ -22,7 +22,7 @@ export default function MediaGallery({ items, title, watchLabel }: { items: Bran
                   width={item.width ?? 1200}
                   height={item.height ?? 800}
                   sizes="(min-width: 640px) 480px, 100vw"
-                  className="h-auto w-full rounded-3xl object-cover"
+                  className="sg-gallery-media h-auto w-full object-cover"
                 />
               )}
               {video?.kind === 'embed' && (
@@ -32,16 +32,16 @@ export default function MediaGallery({ items, title, watchLabel }: { items: Bran
                   loading="lazy"
                   allow="encrypted-media; picture-in-picture; fullscreen"
                   allowFullScreen
-                  className="aspect-video w-full rounded-3xl"
+                  className="sg-gallery-media aspect-video w-full"
                 />
               )}
-              {video?.kind === 'file' && <video src={video.src} controls preload="none" className="aspect-video w-full rounded-3xl bg-black" />}
+              {video?.kind === 'file' && <video src={video.src} controls preload="none" className="sg-gallery-media aspect-video w-full" />}
               {video?.kind === 'link' && (
                 <a href={video.src} rel="noopener noreferrer" className="text-sm font-medium underline underline-offset-4">
                   {item.caption || watchLabel}
                 </a>
               )}
-              {item.caption && video?.kind !== 'link' && <p className="text-sm opacity-70">{item.caption}</p>}
+              {item.caption && video?.kind !== 'link' && <p className="sg-meta">{item.caption}</p>}
             </li>
           );
         })}

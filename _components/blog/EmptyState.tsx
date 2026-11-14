@@ -3,9 +3,9 @@ import type { Messages } from '../../_i18n/messages';
 
 export default function EmptyState({ t }: { t: Messages }) {
   return (
-    <div className="mx-auto max-w-md rounded-2xl border border-dashed border-slate-300 px-6 py-16 text-center">
-      <h2 className="text-lg font-semibold text-slate-900">{t.emptyTitle}</h2>
-      <p className="mt-2 text-sm text-slate-600">{t.emptyDescription}</p>
+    <div className="sg-empty mx-auto max-w-md px-6 py-16 text-center">
+      <h2 className="sg-h4">{t.emptyTitle}</h2>
+      <p className="sg-small mt-2">{t.emptyDescription}</p>
     </div>
   );
 }

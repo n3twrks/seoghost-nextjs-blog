@@ -14,7 +14,7 @@ export default function RelatedArticles({ articles, basePath, t }: Props) {
 
   return (
     <section className="mt-24">
-      <h2 className="mb-8 text-2xl font-semibold tracking-tight text-slate-900">{t.keepReading}</h2>
+      <h2 className="sg-h3 mb-8">{t.keepReading}</h2>
       <ArticleGrid
         articles={articles}
         basePath={basePath}

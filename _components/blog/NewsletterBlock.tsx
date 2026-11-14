@@ -67,7 +67,7 @@ export default function NewsletterBlock({ labels, source, disabled = false, desi
   // tone: 'light' = form over a dark fade, 'dark' = form over a light fade, 'plain' = on the page background.
   const renderForm = (tone: 'plain' | 'light' | 'dark') =>
     state.status === 'success' ? (
-      <p role="status" className={`text-base font-medium ${tone === 'light' ? 'text-slate-900 lg:text-white' : 'text-slate-900'}`}>
+      <p role="status" className="sg-status">
         {feedback}
       </p>
     ) : (
@@ -93,31 +93,18 @@ export default function NewsletterBlock({ labels, source, disabled = false, desi
             required
             disabled={disabled}
             placeholder={labels.emailPlaceholder}
-            className={
-              tone === 'light'
-                ? 'h-11 min-w-0 flex-1 rounded-full border border-slate-900/15 bg-white/60 px-5 text-sm text-slate-900 backdrop-blur-md placeholder:text-slate-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-900 disabled:opacity-70 lg:border-white/25 lg:bg-white/15 lg:text-white lg:placeholder:text-white/60 lg:focus:ring-white'
-                : tone === 'dark'
-                  ? 'h-11 min-w-0 flex-1 rounded-full border border-slate-900/15 bg-white/60 px-5 text-sm text-slate-900 backdrop-blur-md placeholder:text-slate-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-slate-900 disabled:opacity-70'
-                  : 'h-11 min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-4 text-sm text-slate-900 placeholder:text-slate-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[var(--sg-accent)] disabled:opacity-70'
-            }
+            className={`sg-input h-11 min-w-0 flex-1 ${tone === 'plain' ? '' : 'sg-input-glass'}`}
           />
           <button
             type="submit"
             disabled={disabled || isPending}
-            className={
-              tone === 'light'
-                ? 'h-11 rounded-full bg-slate-900 px-6 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-70 lg:bg-white lg:text-slate-900 lg:hover:bg-white/90'
-                : tone === 'dark'
-                  ? 'h-11 rounded-full bg-slate-900 px-6 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-70'
-                  : 'h-11 rounded-lg px-6 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-70'
-            }
-            style={tone === 'plain' ? { background: 'var(--sg-accent)' } : undefined}
+            className={`sg-btn h-11 ${tone === 'plain' ? 'sg-btn-primary' : 'sg-btn-contrast'}`}
           >
             {isPending ? labels.subscribing : buttonLabel}
           </button>
         </form>
         {feedback ? (
-          <p role="status" className={`mt-3 text-sm ${tone === 'light' ? 'text-slate-500 lg:text-white/70' : 'text-slate-500'}`}>
+          <p role="status" className="sg-meta mt-3">
             {feedback}
           </p>
         ) : null}
@@ -141,11 +128,9 @@ export default function NewsletterBlock({ labels, source, disabled = false, desi
     const fade = layout.direction
       ? `linear-gradient(${layout.direction}, rgba(${rgb}, ${strength}) 0%, rgba(${rgb}, ${strength * 0.65}) 50%, rgba(${rgb}, 0) 100%)`
       : `linear-gradient(rgba(${rgb}, ${strength * 0.75}), rgba(${rgb}, ${strength * 0.75}))`;
-    const heading = tone === 'light' ? 'lg:text-white' : '';
-    const body = tone === 'light' ? 'lg:text-white/80' : '';
 
     return (
-      <section className="relative isolate mt-24 overflow-hidden rounded-3xl border border-slate-200 bg-white lg:border-0 lg:bg-transparent">
+      <section className="sg-block relative isolate mt-24 overflow-hidden lg:border-0 lg:bg-transparent">
         {/* Already WebP and under 150 KB: served as is. */}
         <div className="relative h-56 lg:absolute lg:inset-0 lg:-z-20 lg:h-auto">
           <Image
@@ -159,12 +144,13 @@ export default function NewsletterBlock({ labels, source, disabled = false, desi
         </div>
         <div className="absolute inset-0 -z-10 hidden lg:block" style={{ background: fade }} aria-hidden="true" />
         <div
-          className={`flex flex-col items-center px-6 py-10 text-center lg:min-h-[26rem] lg:justify-center lg:px-14 lg:py-14 ${layout.text}`}
+          data-tone={tone}
+          className={`sg-overlay-text flex flex-col items-center px-6 py-10 text-center lg:min-h-[26rem] lg:justify-center lg:px-14 lg:py-14 ${layout.text}`}
         >
-          <h2 className={`max-w-xl text-2xl font-semibold leading-tight tracking-tight text-slate-900 md:text-3xl lg:text-4xl ${heading}`}>
+          <h2 className="sg-h2 max-w-xl">
             {title}
           </h2>
-          <p className={`mt-3 max-w-lg text-base leading-7 text-slate-600 lg:mt-4 ${body}`}>{description}</p>
+          <p className="sg-text mt-3 max-w-lg lg:mt-4">{description}</p>
           <div className={`mt-6 flex w-full justify-center lg:mt-8 ${layout.row}`}>
             <div className="w-full max-w-md">{renderForm(tone)}</div>
           </div>
@@ -175,10 +161,10 @@ export default function NewsletterBlock({ labels, source, disabled = false, desi
 
   if (chosen.variant === 'minimal') {
     return (
-      <section className="mt-24 flex flex-col gap-6 border-y border-slate-200 py-10 md:flex-row md:items-center md:justify-between">
+      <section className="sg-divider mt-24 flex flex-col gap-6 border-y py-10 md:flex-row md:items-center md:justify-between">
         <div className="max-w-md">
-          <h2 className="text-xl font-semibold tracking-tight text-slate-900">{title}</h2>
-          <p className="mt-1 text-sm leading-6 text-slate-600">{description}</p>
+          <h2 className="sg-h4">{title}</h2>
+          <p className="sg-small mt-1">{description}</p>
         </div>
         <div className="flex w-full flex-col md:w-auto md:items-end">{form}</div>
       </section>
@@ -187,7 +173,7 @@ export default function NewsletterBlock({ labels, source, disabled = false, desi
 
   // Split is the last remaining variant.
   return (
-    <section className="mt-24 grid overflow-hidden rounded-3xl border border-slate-200 bg-white lg:grid-cols-2">
+    <section className="sg-block mt-24 grid overflow-hidden lg:grid-cols-2">
       <CoverImage
         src={imageUrl}
         alt=""
@@ -196,8 +182,8 @@ export default function NewsletterBlock({ labels, source, disabled = false, desi
       />
       {/* Stacked (mobile, tablet): a centered card. Side by side (desktop): left-aligned. */}
       <div className="flex flex-col items-center justify-center px-6 py-10 text-center lg:items-start lg:px-10 lg:text-left">
-        <h2 className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">{title}</h2>
-        <p className="mt-3 text-base leading-7 text-slate-600">{description}</p>
+        <h2 className="sg-h2">{title}</h2>
+        <p className="sg-text mt-3">{description}</p>
         <div className="mt-6 flex w-full flex-col items-center lg:items-start">{form}</div>
       </div>
     </section>

@@ -15,7 +15,7 @@ type Props = {
 export default function AuthorLine({ authorName, authorAvatarUrl, date, t }: Props) {
   return (
     <div
-      className={`flex items-center gap-3 text-sm text-slate-500 ${authorName ? 'justify-between' : 'justify-start'}`}
+      className={`sg-meta flex items-center gap-3 ${authorName ? 'justify-between' : 'justify-start'}`}
     >
       {authorName ? (
         <span className="flex min-w-0 items-center gap-2">
@@ -25,10 +25,10 @@ export default function AuthorLine({ authorName, authorAvatarUrl, date, t }: Pro
               alt=""
               width={24}
               height={24}
-              className="h-6 w-6 flex-none rounded-full object-cover"
+              className="sg-avatar h-6 w-6 flex-none"
             />
           ) : null}
-          <span className="truncate font-medium text-slate-700">{authorName}</span>
+          <span className="sg-meta-strong truncate">{authorName}</span>
         </span>
       ) : null}
       <time dateTime={date} className="flex-none">

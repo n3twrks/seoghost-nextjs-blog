@@ -1,6 +1,8 @@
 // src/templates/saas/(seoghost)/_components/blog/ArticleCtaBlock.tsx
 import { BUTTON_RADIUS, resolveColors, withTracking } from '../../_lib/article-cta';
 import type { ArticleCta } from '../../_types/site';
+// Also rendered alone by the CTA editor of SEOGhost: it loads the kit's styles itself.
+import '../seoghost.base.css';
 
 type Props = {
   cta: ArticleCta;
@@ -31,7 +33,7 @@ export default function ArticleCtaBlock({ cta, accent, articleSlug, locale }: Pr
 
   return (
     <aside
-      className="my-10 rounded-2xl px-6 py-8 text-center md:px-10"
+      className="sg-article-cta my-10 px-6 py-8 text-center md:px-10"
       style={{
         background: colors.background,
         color: colors.text,
@@ -47,28 +49,28 @@ export default function ArticleCtaBlock({ cta, accent, articleSlug, locale }: Pr
           width={128}
           height={128}
           loading="lazy"
-          className="mx-auto h-32 w-32 rounded-2xl object-cover"
+          className="sg-article-cta-media mx-auto h-32 w-32"
         />
       ) : null}
 
       {ratingText ? (
         <p className="mt-4 flex items-center justify-center gap-2 text-sm">
           {hasRating ? (
-            <span aria-hidden="true" className="tracking-widest" style={{ color: '#c9a24d' }}>
+            <span aria-hidden="true" className="sg-stars">
               {'★'.repeat(filledStars)}
-              <span style={{ opacity: 0.3 }}>{'★'.repeat(5 - filledStars)}</span>
+              <span className="sg-stars-empty">{'★'.repeat(5 - filledStars)}</span>
             </span>
           ) : null}
           <span>{ratingText}</span>
         </p>
       ) : null}
 
-      <p className="mt-3 text-2xl font-bold leading-snug">{cta.title}</p>
-      {cta.subtitle ? <p className="mx-auto mt-2 max-w-md text-base leading-7 opacity-80">{cta.subtitle}</p> : null}
+      <p className="sg-article-cta-title mt-3">{cta.title}</p>
+      {cta.subtitle ? <p className="sg-article-cta-text mx-auto mt-2 max-w-md">{cta.subtitle}</p> : null}
 
       <a
         href={withTracking(cta.button_url, articleSlug)}
-        className="mt-6 inline-flex items-center px-8 py-3.5 text-base font-semibold shadow-sm transition hover:opacity-90"
+        className="sg-article-cta-btn mt-6"
         style={{
           background: colors.button_background,
           color: colors.button_text,
@@ -78,7 +80,7 @@ export default function ArticleCtaBlock({ cta, accent, articleSlug, locale }: Pr
         {cta.button_label}
       </a>
 
-      {cta.subtext ? <p className="mt-4 text-sm opacity-70">{cta.subtext}</p> : null}
+      {cta.subtext ? <p className="sg-article-cta-note mt-4">{cta.subtext}</p> : null}
     </aside>
   );
 }

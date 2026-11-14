@@ -10,8 +10,9 @@ domain and inside your own layout:
 - **one sitemap** for all of it, and structured data on every page.
 
 Everything renders on the server: search engines and AI crawlers get plain HTML.
-Copy the folder **once and never edit it**: every setting lives in SEOGhost, and
-new collections or articles show up without a new copy or a redeploy.
+Copy the folder **once and never edit it**: every setting lives in SEOGhost, the
+design lives in one file of your site (`src/styles/seoghost.theme.css`), and new
+collections or articles show up without a new copy or a redeploy.
 
 The **Settings › Integration** page of SEOGhost walks you through these steps
 with your own values (paths, URLs, snippets) already filled in.
@@ -59,11 +60,23 @@ with your own values (paths, URLs, snippets) already filled in.
    Tailwind CSS v4 detects the folder by itself; on v3, make sure `content`
    includes `./app/**/*.{ts,tsx}`.
 
-4. **Links**: add `/blog` and the hub of each collection (`/custom-song`) to your
+4. **Theme file**, once: copy `(seoghost)/seoghost.theme.example.css` to
+   `src/styles/seoghost.theme.css` (or `styles/` without a `src/` folder) and
+   import it in `globals.css`, after Tailwind:
+
+   ```css
+   @import "tailwindcss";
+   @import "../styles/seoghost.theme.css";
+   ```
+
+   Empty, it changes nothing: the folder loads its own defaults
+   (`_components/seoghost.base.css`). See "Make it look like your site".
+
+5. **Links**: add `/blog` and the hub of each collection (`/custom-song`) to your
    **footer**. The pages stay out of your header menu, but they must be
    reachable: each hub lists its pages and each page links to its siblings.
 
-5. **Sitemap**: submit `https://yoursite.com/seoghost/sitemap.xml` to Google
+6. **Sitemap**: submit `https://yoursite.com/seoghost/sitemap.xml` to Google
    Search Console (one per locale on a multilingual site:
    `/fr/seoghost/sitemap.xml`…). It lists the blog, its tags and the
    programmatic pages. Or merge it into your root sitemap instead:
@@ -113,20 +126,46 @@ each publication.
 
 ## Make it look like your site
 
-The blog and the pages render inside your layouts (header, footer, fonts) and
-inherit your text color. To use your own design tokens, define in `globals.css`:
+The blog and the pages render inside your layouts (header, footer). The pages
+inherit your font and text color; the blog is a white page with Inter by default.
+
+**All the styling lives in `src/styles/seoghost.theme.css`**, never in the folder:
+
+- **tokens** (`--sg-*`) hold the values: container width, colors, title sizes,
+  radius, buttons, shadows;
+- **recipes** (`.sg-*`) hold the look of each element: `.sg-btn-primary`,
+  `.sg-card`, `.sg-h1`, `.sg-prose` (article body)… The components use them for
+  everything visual; Tailwind only does the layout.
 
 ```css
 :root {
   --seoghost-accent: var(--primary);   /* buttons, links, highlights */
   --seoghost-font: var(--font-sans);   /* the blog uses Inter otherwise */
+  --sg-container-max: 80rem;           /* match your site's container */
+  --sg-radius-card: 0;
 }
+/* A recipe, when a token is not enough */
+.sg-btn-primary { background: transparent; color: var(--sg-accent); border: 2px solid var(--sg-accent); }
 ```
 
-They take precedence over the accent set in SEOGhost. To restyle the components
-themselves with your own (buttons, cards…), ask your coding agent:
+The folder's defaults live in `@layer components`; your theme is not in a layer,
+so it always wins, whatever the loading order, without `!important`. The full
+list of tokens and recipes is in `seoghost.theme.example.css` and
+`_components/seoghost.base.css`.
 
-> Read `app/(seoghost)/SEOGHOST.md` and restyle the blog and the programmatic pages to match my site.
+- The accent is `--seoghost-accent` (it wins over Settings › Appearance), never
+  `--sg-accent`, which is set inline from SEOGhost.
+- The color tokens apply to the blog. The pages derive theirs from your text
+  color: set the tokens on `.sg-pages` to change them there.
+- Global rules of your site outside any layer (`h1 { … }`, `button { … }` in
+  `globals.css`) also win over the defaults: move them into `@layer base`, or
+  counter them in the theme.
+- Colors chosen in SEOGhost (article CTA block, newsletter design) are data:
+  change them in SEOGhost.
+
+To match your site automatically, ask your coding agent:
+
+> Read `app/(seoghost)/SEOGHOST.md` and adapt `src/styles/seoghost.theme.css` to match my site.
 
 ## Multilingual sites
 
@@ -145,7 +184,7 @@ When SEOGhost ships a new version of the folder:
 
 1. delete `app/(seoghost)/`;
 2. copy the new `(seoghost)` folder at the same place, and deploy;
-3. if you restyled the components, run the `SEOGHOST.md` prompt again.
+3. check "Theme changes" below: your theme file is untouched and keeps working.
 
 **Update before publishing new pages.** Landing pages (hero, cards, Brand Kit
 sections) need the latest folder: an older copy skips blocks it does not know,
@@ -158,6 +197,16 @@ first heading of every article, with the tracking added to its link
 not show it. Copy the new folder, then switch the block on in SEOGhost.
 
 No setting to report: they all live in SEOGhost.
+
+## Theme changes
+
+Renaming or removing a token or a recipe is a breaking change and is listed here
+(old → new). New ones are never breaking: they arrive with their default look.
+
+- **Theme v1**: first version. Replaces `_components/blog/ArticleContent.module.css`
+  (now the `.sg-prose` recipe). `SEOGHOST_API_URL` is renamed
+  `NEXT_PUBLIC_SEOGHOST_API_URL`. If you restyled the components of an older folder,
+  move those styles to your theme file before updating.
 
 ## Freshness
 
@@ -181,5 +230,10 @@ yet, wrong domain), the 1-hour cache still applies.
 - There is no `loading.tsx` in the folder on purpose: a streamed response is sent
   with a 200 status before a missing article becomes a 404.
 - Cover photos from Unsplash show the required photographer credit.
-- Opacity utilities on `currentColor` (`border-current/10`) need Tailwind CSS v4;
-  on v3 they are simply ignored.
+- No need to set `NEXT_PUBLIC_SEOGHOST_API_URL`: the folder calls
+  `https://seoghost.dev` by default. The variable only points it to another
+  SEOGhost (e.g. `http://localhost:3000` while developing SEOGhost itself). It is
+  an address, not a secret, hence the public prefix (secret scanners such as
+  Netlify's fail the build on unprefixed variables whose value appears in the repo).
+- The theme relies on Tailwind CSS v4 (`@layer components`) and on `color-mix()`
+  (all current browsers).

@@ -7,7 +7,7 @@ export type SubscribeState = {
   status: 'idle' | 'success' | 'invalid' | 'error';
 };
 
-const API_URL = process.env.SEOGHOST_API_URL ?? 'https://seoghost.dev';
+const API_URL = process.env.NEXT_PUBLIC_SEOGHOST_API_URL ?? 'https://seoghost.dev';
 
 export async function subscribe(_previous: SubscribeState, formData: FormData): Promise<SubscribeState> {
   const site = process.env.NEXT_PUBLIC_SEOGHOST_SITE_SLUG;

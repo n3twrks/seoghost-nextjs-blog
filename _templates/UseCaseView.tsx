@@ -10,7 +10,7 @@ export default function UseCaseView({ page, install, t, jsonLd, preview, brand }
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
       )}
       {preview && (
-        <p className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-sm text-amber-800">Preview — this page may not be published yet.</p>
+        <p className="sg-notice px-4 py-2">Preview — this page may not be published yet.</p>
       )}
       <BlockRenderer blocks={page.blocks} t={t} brand={brand} />
       <RelatedPages pages={page.related} install={install} title={t.keepReading} />

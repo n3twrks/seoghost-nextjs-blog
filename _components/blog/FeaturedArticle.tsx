@@ -22,24 +22,24 @@ export default function FeaturedArticle({ article, basePath, t }: Props) {
           alt={article.cover_alt ?? article.title}
           sizes="(min-width: 1024px) 560px, 100vw"
           priority
-          className="aspect-[4/3] rounded-2xl"
+          className="aspect-[4/3] sg-media"
         />
       </Link>
 
       <div className="flex flex-col gap-4">
         <CategoryLink tag={article.tags[0]} basePath={basePath} fallbackLabel={t.defaultCategory} />
-        <h2 className="text-3xl font-semibold leading-tight tracking-tight text-slate-900 lg:text-4xl">
-          <Link href={`${basePath}/${article.slug}`} className="hover:text-[color:var(--sg-accent)]">
+        <h2 className="sg-h2">
+          <Link href={`${basePath}/${article.slug}`} className="sg-title-link">
             {article.title}
           </Link>
         </h2>
         {article.excerpt ? (
-          <p className="line-clamp-4 text-base leading-7 text-slate-600">{article.excerpt}</p>
+          <p className="sg-text line-clamp-4">{article.excerpt}</p>
         ) : null}
         <AuthorLine authorName={article.author_name} authorAvatarUrl={article.author_avatar_url} date={article.published_at} t={t} />
         <Link
           href={`${basePath}/${article.slug}`}
-          className="mt-1 text-sm font-semibold text-[color:var(--sg-accent)] hover:underline"
+          className="sg-link mt-1"
         >
           {t.readMoreLabel} →
         </Link>

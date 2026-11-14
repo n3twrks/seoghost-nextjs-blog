@@ -40,7 +40,7 @@ export default function BlogIndexView({ articles, pagination, site, currentPage,
         <>
           {featured ? (
             <div className="mt-16 md:mt-20">
-              <h2 className="mb-8 text-2xl font-semibold tracking-tight text-slate-900">{t.featuredTitle}</h2>
+              <h2 className="sg-h3 mb-8">{t.featuredTitle}</h2>
               <FeaturedArticle
                 article={featured}
                 basePath={basePath}
@@ -50,8 +50,8 @@ export default function BlogIndexView({ articles, pagination, site, currentPage,
           ) : null}
 
           {gridArticles.length > 0 ? (
-            <div className={featured ? 'mt-20 border-t border-slate-200 pt-16' : 'mt-16'}>
-              <h2 className="mb-8 text-2xl font-semibold tracking-tight text-slate-900">{t.latestTitle}</h2>
+            <div className={featured ? 'sg-divider mt-20 border-t pt-16' : 'mt-16'}>
+              <h2 className="sg-h3 mb-8">{t.latestTitle}</h2>
               <ArticleGrid
                 articles={gridArticles}
                 basePath={basePath}

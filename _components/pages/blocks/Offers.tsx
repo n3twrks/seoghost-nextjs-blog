@@ -16,32 +16,29 @@ export default function Offers({ offers, fallbackUrl, labels }: { offers: BrandO
           return (
             <li
               key={offer.id}
-              className={`relative flex flex-col gap-4 rounded-3xl border p-7 ${offer.highlighted ? 'shadow-xl shadow-black/10' : ''}`}
-              style={offer.highlighted ? { borderColor: 'var(--sg-accent)', borderWidth: 2 } : { borderColor: 'color-mix(in srgb, currentColor 10%, transparent)' }}
+              data-highlighted={offer.highlighted ? 'true' : undefined}
+              className="sg-card sg-card-lg sg-offer relative flex flex-col gap-4 p-7"
             >
               {offer.highlighted && (
-                <span
-                  className="absolute -top-3 left-7 rounded-full px-3 py-1 text-xs font-semibold text-white"
-                  style={accentGradient}
-                >
+                <span className={`sg-tag ${accentGradient} absolute -top-3 left-7`}>
                   {labels.highlighted}
                 </span>
               )}
-              <h3 className="text-lg font-semibold">{offer.name}</h3>
-              {offer.price_label && <p className="text-4xl font-semibold tracking-tight">{offer.price_label}</p>}
-              {offer.description && <p className="text-sm leading-6 opacity-80">{offer.description}</p>}
+              <h3 className="sg-h4">{offer.name}</h3>
+              {offer.price_label && <p className="sg-price">{offer.price_label}</p>}
+              {offer.description && <p className="sg-small">{offer.description}</p>}
               {offer.features.length > 0 && (
                 <ul className="flex flex-col gap-2 text-sm">
                   {offer.features.map((feature, i) => (
                     <li key={i} className="flex gap-2">
-                      <span aria-hidden style={accentText}>✓</span>
+                      <span aria-hidden className={accentText}>✓</span>
                       <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
               )}
               {url && (
-                <a href={url} className={`mt-auto ${offer.highlighted ? primaryButton : secondaryButton}`} style={offer.highlighted ? accentGradient : undefined}>
+                <a href={url} className={`mt-auto ${offer.highlighted ? primaryButton : secondaryButton}`}>
                   {labels.choose}
                 </a>
               )}

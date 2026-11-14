@@ -22,7 +22,7 @@ export default function TagView({ tag, articles, pagination, currentPage, basePa
     <main>
       <Link
         href={basePath}
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-slate-900"
+        className="sg-back-link inline-flex items-center gap-1.5"
       >
         <span aria-hidden="true">←</span> {t.backToBlog}
       </Link>

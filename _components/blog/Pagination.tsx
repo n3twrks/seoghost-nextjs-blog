@@ -27,8 +27,8 @@ function visiblePages(current: number, total: number): (number | null)[] {
   return result;
 }
 
-const linkClass =
-  'inline-flex h-10 min-w-10 items-center justify-center rounded-lg border px-3 text-sm font-medium transition-colors';
+// The active page is styled through aria-current="page" (recipe .sg-pagination-item).
+const linkClass = 'sg-pagination-item';
 
 // Real links (not a "load more" button) so search engines can follow them.
 export default function Pagination({ currentPage, totalPages, basePath, t }: Props) {
@@ -40,7 +40,7 @@ export default function Pagination({ currentPage, totalPages, basePath, t }: Pro
         <Link
           href={hrefFor(basePath, currentPage - 1)}
           rel="prev"
-          className={`${linkClass} border-slate-200 text-slate-700 hover:bg-slate-50`}
+          className={linkClass}
         >
           {t.previous}
         </Link>
@@ -48,7 +48,7 @@ export default function Pagination({ currentPage, totalPages, basePath, t }: Pro
 
       {visiblePages(currentPage, totalPages).map((page, index) =>
         page === null ? (
-          <span key={`gap-${index}`} className="px-1 text-slate-400" aria-hidden="true">
+          <span key={`gap-${index}`} className="sg-faint px-1" aria-hidden="true">
             …
           </span>
         ) : (
@@ -56,11 +56,7 @@ export default function Pagination({ currentPage, totalPages, basePath, t }: Pro
             key={page}
             href={hrefFor(basePath, page)}
             aria-current={page === currentPage ? 'page' : undefined}
-            className={
-              page === currentPage
-                ? `${linkClass} border-transparent bg-[color:var(--sg-accent)] text-white`
-                : `${linkClass} border-slate-200 text-slate-700 hover:bg-slate-50`
-            }
+            className={linkClass}
           >
             {page}
           </Link>
@@ -71,7 +67,7 @@ export default function Pagination({ currentPage, totalPages, basePath, t }: Pro
         <Link
           href={hrefFor(basePath, currentPage + 1)}
           rel="next"
-          className={`${linkClass} border-slate-200 text-slate-700 hover:bg-slate-50`}
+          className={linkClass}
         >
           {t.next}
         </Link>

@@ -13,13 +13,13 @@ type Props = {
 /** First tag of an article, shown as its category. */
 export default function CategoryLink({ tag, basePath, fallbackLabel }: Props) {
   if (!tag) {
-    return <span className="inline-block text-sm font-medium text-[color:var(--sg-accent)]">{fallbackLabel}</span>;
+    return <span className="sg-link inline-block">{fallbackLabel}</span>;
   }
 
   return (
     <Link
       href={`${basePath}/tag/${tag.slug}`}
-      className="inline-block text-sm font-medium text-[color:var(--sg-accent)] hover:underline"
+      className="sg-link inline-block"
     >
       {tag.name}
     </Link>

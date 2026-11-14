@@ -1,6 +1,6 @@
 // src/templates/saas/(seoghost)/_components/pages/blocks/LandingSteps.tsx
 import type { StepsBlock } from '../../../_types/pages';
-import { accentGradient, sectionTitle } from '../../../_lib/landing-style';
+import { sectionTitle } from '../../../_lib/landing-style';
 
 /** "How it works" of the landing pages: numbered steps in a row. Target of the hero's secondary button. */
 export default function LandingSteps({ block }: { block: StepsBlock }) {
@@ -11,13 +11,13 @@ export default function LandingSteps({ block }: { block: StepsBlock }) {
         {block.items.map((item, i) => (
           <li key={i} className="relative flex flex-col gap-3">
             {i < block.items.length - 1 && (
-              <span aria-hidden className="absolute left-14 right-0 top-6 hidden h-px bg-current/15 md:block" />
+              <span aria-hidden className="sg-connector absolute left-14 right-0 top-6 hidden h-px md:block" />
             )}
-            <span className="flex h-12 w-12 items-center justify-center rounded-full text-base font-semibold text-white shadow-lg shadow-black/10" style={accentGradient}>
+            <span className="sg-num sg-num-lg flex h-12 w-12 items-center justify-center">
               {i + 1}
             </span>
-            <h3 className="text-lg font-semibold">{item.title}</h3>
-            {item.text && <p className="text-sm leading-6 opacity-75">{item.text}</p>}
+            <h3 className="sg-h4">{item.title}</h3>
+            {item.text && <p className="sg-small">{item.text}</p>}
           </li>
         ))}
       </ol>

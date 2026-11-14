@@ -4,7 +4,7 @@
 // Never import this from a client component: it reads the API key from the
 // environment.
 
-const API_URL = process.env.SEOGHOST_API_URL ?? 'https://seoghost.dev';
+const API_URL = process.env.NEXT_PUBLIC_SEOGHOST_API_URL ?? 'https://seoghost.dev';
 
 /** Cached for an hour in production; SEOGhost also refreshes it on demand (seoghost/revalidate). */
 const REVALIDATE_SECONDS = process.env.NODE_ENV === 'development' ? 1 : 3600;

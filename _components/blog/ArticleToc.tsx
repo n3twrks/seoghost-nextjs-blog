@@ -9,15 +9,15 @@ export default function ArticleToc({ items, maxLevel, t }: { items: TocItem[]; m
 
   return (
     <nav aria-label={t.onThisPage}>
-      <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+      <p className="sg-toc-title mb-3">
         {t.onThisPage}
       </p>
-      <ul className="flex flex-col gap-2 border-l border-slate-200">
+      <ul className="sg-toc flex flex-col gap-2 border-l">
         {visible.map((item) => (
           <li key={item.id}>
             <a
               href={`#${item.id}`}
-              className={`-ml-px block border-l-2 border-transparent py-0.5 text-sm leading-5 text-slate-600 hover:border-[color:var(--sg-accent)] hover:text-slate-900 ${
+              className={`sg-toc-link -ml-px block ${
                 item.level === 3 ? 'pl-7' : 'pl-4'
               }`}
             >

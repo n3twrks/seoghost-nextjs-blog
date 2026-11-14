@@ -12,15 +12,12 @@ export default function CtaBlock({ text, url, t }: Props) {
   if (!text || !url) return null;
 
   return (
-    <section
-      className="mt-24 rounded-3xl px-6 py-14 text-center text-white md:px-12"
-      style={{ background: 'var(--sg-accent)' }}
-    >
-      <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">{t.ctaTitle}</h2>
-      <p className="mx-auto mt-3 max-w-xl text-base leading-7 text-white/85">{t.ctaDescription}</p>
+    <section className="sg-cta sg-accent-bg mt-24 px-6 py-14 text-center md:px-12">
+      <h2 className="sg-h2">{t.ctaTitle}</h2>
+      <p className="sg-text mx-auto mt-3 max-w-xl">{t.ctaDescription}</p>
       <a
         href={url}
-        className="mt-8 inline-flex items-center rounded-lg bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-100"
+        className="sg-btn sg-btn-on-accent mt-8"
       >
         {text}
       </a>

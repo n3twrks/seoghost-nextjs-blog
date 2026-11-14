@@ -1,0 +1,101 @@
+/* seoghost.theme.example.css — Theme v1
+
+   Copy this file ONCE to src/styles/seoghost.theme.css (outside the (seoghost) folder)
+   and import it in your globals.css, after Tailwind:
+
+     @import "tailwindcss";
+     @import "../styles/seoghost.theme.css";
+
+   It restyles the SEOGhost blog and pages without touching the folder, so updating
+   the folder never loses your design. Rules:
+   - only write what changes: everything else keeps the defaults of
+     (seoghost)/_components/seoghost.base.css (read it for the full list);
+   - no @layer, no !important: this file is unlayered, so it always wins over the defaults;
+   - no margins, grids or widths: the layout belongs to the folder. Only the container is
+     set, through --sg-container-max and --sg-container-max-pages;
+   - the accent is --seoghost-accent, NEVER --sg-accent (set inline from SEOGhost, it would win);
+   - broken theme? Empty this file: the defaults come back.
+
+   Limits:
+   - global rules of your site that are not in a layer (e.g. `h1 { … }` or `button { … }`
+     in globals.css) also win over the defaults: move them into @layer base, or counter
+     them here;
+   - colours chosen in SEOGhost (accent, article CTA block, newsletter design) are data,
+     set inline: change them in SEOGhost.
+*/
+
+:root {
+  /* ---------- Brand ---------- */
+  /* --seoghost-accent: var(--primary);   buttons, links, highlights (wins over Settings › Appearance) */
+  /* --seoghost-font: var(--font-sans);   blog font (Inter otherwise); the pages inherit yours */
+  /* --sg-font-body: …;                   same as --seoghost-font, wins over it */
+  /* --sg-font-heading: …;                titles (inherit otherwise) */
+
+  /* ---------- Container ---------- */
+  /* --sg-container-max: 72rem;           blog, match your site's container */
+  /* --sg-container-max-pages: 64rem;     programmatic pages */
+  /* --sg-container-padding: 1rem;  --sg-container-padding-sm: 1.5rem;  --sg-container-padding-lg: 2rem; */
+  /* --sg-page-padding-y: 4rem;  --sg-page-padding-y-md: 6rem; */
+
+  /* ---------- Colours of the blog ---------- */
+  /* The pages inherit your text colour: set these on .sg-pages to change them there. */
+  /* --sg-bg: #fff;  --sg-text: #0f172a;  --sg-heading: #0f172a;  --sg-text-strong: #334155; */
+  /* --sg-text-soft: #475569;  --sg-muted: #64748b;  --sg-faint: #94a3b8; */
+  /* --sg-border: #e2e8f0;  --sg-border-strong: #cbd5e1;  --sg-border-hover: #cbd5e1; */
+  /* --sg-surface: #f8fafc;  --sg-surface-strong: #f1f5f9; */
+  /* --sg-accent-text: #fff;              text on the accent */
+  /* --sg-on-light: #0f172a;  --sg-on-light-bg: #fff;   light button on the accent */
+  /* --sg-contrast: #0f172a;  --sg-contrast-hover: #1e293b;   newsletter button over an image */
+  /* --sg-star: #c9a24d;  --sg-star-review: #fbbf24; */
+  /* --sg-prose-color: var(--sg-text-strong);   article body */
+
+  /* ---------- Typography ---------- */
+  /* --sg-heading-weight: 600;  --sg-heading-tracking: -0.025em; */
+  /* --sg-display-size: 2.25rem;  --sg-display-size-md: 3.75rem;  --sg-display-line-height: 1.05; */
+  /* --sg-h1-size: 2.25rem;  --sg-h1-size-md: 3rem;  --sg-h1-line-height: 1.15; */
+  /* --sg-h2-size: 1.875rem;  --sg-h2-size-md: 2.25rem;  --sg-h2-line-height: 1.25; */
+  /* --sg-h3-size: 1.5rem;  --sg-h3-line-height: 1.333; */
+  /* --sg-h4-size: 1.125rem;  --sg-h4-line-height: 1.375; */
+  /* --sg-prose-size: 1.0625rem;  --sg-prose-line-height: 1.85; */
+
+  /* ---------- Shapes ---------- */
+  /* --sg-radius-media: 1rem;  --sg-radius-media-sm: 0.75rem;   covers */
+  /* --sg-radius-card: 1rem;  --sg-radius-block: 1.5rem;  --sg-radius-panel: 2rem; */
+  /* --sg-radius-button: 0.5rem;  --sg-radius-button-lg: 9999px;  --sg-radius-input: 0.5rem;  --sg-radius-pill: 9999px; */
+
+  /* ---------- Buttons ---------- */
+  /* --sg-btn-padding: 0.75rem 1.5rem;  --sg-btn-padding-lg: 0.875rem 1.75rem; */
+  /* --sg-btn-size: 0.875rem;  --sg-btn-weight: 600;  --sg-btn-transform: none;  --sg-btn-tracking: normal; */
+
+  /* ---------- Effects ---------- */
+  /* --sg-shadow, --sg-shadow-lg, --sg-shadow-xl, --sg-shadow-media, --sg-transition */
+}
+
+/* ---------- Recipes ----------
+   Redefine a recipe only when a token is not enough. Available recipes:
+
+   Frames      .sg-blog .sg-pages .sg-container .sg-container-pages
+   Titles      .sg-display .sg-h1 .sg-h2 .sg-h3 .sg-h4 .sg-h5 .sg-price
+   Text        .sg-lead .sg-text .sg-small .sg-meta .sg-meta-strong .sg-faint .sg-caption .sg-author-name .sg-status
+   Links       .sg-link .sg-title-link .sg-back-link .sg-breadcrumbs .sg-badge
+   Surfaces    .sg-eyebrow .sg-tag .sg-cover .sg-media .sg-media-sm .sg-empty .sg-block .sg-cta .sg-panel
+               .sg-divider .sg-accent-bg .sg-accent-gradient .sg-accent-tint .sg-accent-text
+   Actions     .sg-btn .sg-btn-lg .sg-btn-primary .sg-btn-gradient .sg-btn-secondary .sg-btn-on-accent .sg-btn-contrast
+   Navigation  .sg-pagination-item ([aria-current='page'] = active) .sg-toc .sg-toc-title .sg-toc-link
+   Forms       .sg-input .sg-input-glass .sg-overlay-text[data-tone='light|dark']
+   Content     .sg-prose .sg-avatar .sg-avatar-initial .sg-stars .sg-review-stars .sg-stars-empty
+               .sg-article-cta .sg-article-cta-media .sg-article-cta-title .sg-article-cta-text
+               .sg-article-cta-note .sg-article-cta-btn
+   Pages       .sg-card .sg-card-lg .sg-review .sg-offer[data-highlighted='true'] .sg-tile .sg-item
+               .sg-item-raised .sg-faq .sg-faq-question .sg-num .sg-num-lg .sg-card-num .sg-connector
+               .sg-quote-mark .sg-hero-media .sg-gallery-media .sg-deco-circle .sg-notice
+
+   Example: outlined, uppercase primary buttons.
+
+.sg-btn-primary {
+  background: transparent;
+  color: var(--sg-accent);
+  border: 2px solid var(--sg-accent);
+  text-transform: uppercase;
+}
+*/

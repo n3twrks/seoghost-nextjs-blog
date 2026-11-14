@@ -1,57 +1,55 @@
 # Instructions for your coding agent (Claude Code, Cursor…)
 
 This folder renders the SEOGhost **blog** (`blog/`) and **programmatic pages**
-(`[collection]/`) of this site, from the SEOGhost API. Articles arrive as sanitized
-HTML, programmatic pages as JSON **blocks** of plain text (see `_types/`); this
-folder only decides how they look. Your job: make them look like the rest of
-this site.
+(`[collection]/`) of this site, from the SEOGhost API. **Do not modify any file of
+this folder**: it is replaced as a whole on every update. All the styling lives in
+ONE file of the site: `src/styles/seoghost.theme.css` (`styles/seoghost.theme.css`
+without a `src/` folder).
+
+Goal: make the blog and the pages look like the rest of the site, by editing only
+that file.
 
 ## Do
 
-1. Study the site's design system first: the root layout, the landing page, the
-   button / card / section components, the Tailwind theme or CSS variables.
-2. Prefer design tokens: define `--seoghost-accent` (primary color) and, if the
-   blog should not use Inter, `--seoghost-font` in the site's `globals.css`.
-   Every component reads `var(--sg-accent)`, which resolves to them.
-3. Then restyle the presentational components so they reuse the site's own
-   components and classes:
-   - blog: `_components/blog/` (cards, featured article, pagination, table of
-     contents, newsletter and CTA blocks) and `_views/` (index, article, tag);
-     `_components/blog/ArticleContent.module.css` styles the article body;
-   - programmatic pages: `_components/pages/` (blocks, breadcrumbs, related
-     pages), the page templates in `_templates/` (one per page type) and the
-     collection hub in `_views/HubView.tsx`;
-   - `HeroAnswer.tsx` should feel like the site's landing hero, `CtaBlock.tsx`
-     (both) should use the site's primary button, cards should use the site's
-     card style.
-4. Keep it responsive and accessible (one `h1` per page, `h2` per section).
+1. Study the site's design system: root layout, landing page, buttons, cards,
+   sections, Tailwind theme or CSS variables, container width.
+2. If `src/styles/seoghost.theme.css` does not exist, copy
+   `(seoghost)/seoghost.theme.example.css` there and import it in `globals.css`
+   right after `@import "tailwindcss";`.
+3. Read `(seoghost)/_components/seoghost.base.css`: the tokens (`--sg-*`) and
+   recipes (`.sg-*`) with their defaults. The components use these recipes for
+   everything visual.
+4. In the theme:
+   - start with tokens: `--seoghost-accent` (accent color: NOT `--sg-accent`),
+     `--seoghost-font`, `--sg-container-max` and `--sg-container-max-pages` to match
+     the site's container, radius, title sizes, button padding…;
+   - redefine a recipe only when a token is not enough (e.g. outlined uppercase
+     buttons, cards with a border instead of a shadow);
+   - the color tokens apply to the blog; the pages inherit the site's text color.
+     To change colors on the pages, set the tokens on `.sg-pages`;
+   - write only the values that change; no `@layer`, no `!important`; no margins
+     or grids (the layout is the folder's; only the container is set, through its
+     tokens).
+5. If a global rule of the site outside any layer (e.g. `h1 { … }`,
+   `button { … }`) overrides the folder's defaults, move it into `@layer base` or
+   counter it in the theme.
+6. Check `npm run build`, then `/blog`, an article, a tag page, a collection hub
+   and a programmatic page, on mobile and desktop.
+7. If something cannot be set in the theme (structure, block order, markup), do
+   not edit the folder: note it and report it so it is added to the kit.
 
-## Do not
+## Never touch
 
-- Do not change `_lib/`, `_types/`, `_i18n/`, `_templates/index.ts`, `seoghost/`,
-  the data loading of the route files (`page.tsx`, `layout.tsx`, `not-found.tsx`
-  in `blog/` and `[collection]/`), `generateMetadata` or the JSON-LD scripts.
-- Do not add a config file: every setting (accent, end-of-article block, articles
-  per page…) comes from SEOGhost through the API.
-- Do not rename or move the folder.
-- Do not add a `not-found.tsx` at the root of the folder or under `[collection]/`:
-  `[collection]` catches the site's unknown paths, which must keep the site's own
-  404 page.
-- Do not add a `loading.tsx`: streaming answers 200 before a missing article or
-  page becomes a 404.
-- Build every link with the helpers of `_lib/locale.ts` (`blogPath`, `hubPath`,
-  `pagePath`): never hard-code `/blog`, a locale or a collection prefix.
-- Do not render any programmatic block string as HTML (`dangerouslySetInnerHTML`):
-  it is plain text. Article HTML is already sanitized by SEOGhost.
-- Do not remove a block type from `BlockRenderer.tsx` (new pages may use it), and
-  do not hide the FAQ (it is part of the structured data).
-- Do not move these pages into the header menu; link `/blog` and the collection hubs
-  from the footer.
+- Any file of the `(seoghost)` folder: `_lib/`, `_types/`, `_i18n/`, `_components/`,
+  `_views/`, `_templates/`, `seoghost/`, the route files, the metadata and the JSON-LD.
+- Do not add a `not-found.tsx` or a `loading.tsx` in the folder.
+- Colors chosen in SEOGhost (accent in Settings › Appearance, article CTA block,
+  newsletter design) are data: they are changed in SEOGhost, not in the theme
+  (except the accent, through `--seoghost-accent`).
 
 ## Updates
 
 SEOGhost ships new versions of this folder as a whole: the site owner deletes it
-and copies the new one. Your restyle is then lost and this prompt runs again, so
-keep the changes inside the presentational files listed above.
-
-The CTA block of the articles (`ArticleCtaBlock.tsx`) is configured in SEOGhost (Blog › CTA) and added to the link with its tracking parameters by `_lib/article-cta.ts`: restyle its markup if you must, but keep `withTracking` on the button link.
+and copies the new one. The theme file is outside the folder, so it is kept and
+nothing has to be redone. Check the "Theme changes" section of the README for any
+renamed token or recipe.

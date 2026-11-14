@@ -22,15 +22,11 @@ export function appearanceOf(site: Pick<Site, 'appearance'> | null | undefined):
 }
 
 /**
- * Style of the blog and pages wrappers. Components read --sg-accent;
- * --seoghost-accent and --seoghost-font, defined in your CSS, take precedence
- * over the SEOGhost settings. Without --seoghost-font, the pages inherit your
- * font and the blog uses `fallbackFont`.
+ * Inline style of the blog and pages wrappers: the accent only (it is data).
+ * Components read --sg-accent; --seoghost-accent, defined in your CSS or theme,
+ * takes precedence over the SEOGhost setting. The font is set by the .sg-blog
+ * and .sg-pages recipes of seoghost.base.css.
  */
-export function shellStyle(accent: string | null | undefined, fallbackFont?: string): CSSProperties {
-  return {
-    '--sg-accent': `var(--seoghost-accent, ${accent || DEFAULT_ACCENT})`,
-    // An undefined variable with no fallback makes font-family inherit.
-    fontFamily: fallbackFont ? `var(--seoghost-font, ${fallbackFont})` : 'var(--seoghost-font)',
-  } as CSSProperties;
+export function shellStyle(accent: string | null | undefined): CSSProperties {
+  return { '--sg-accent': `var(--seoghost-accent, ${accent || DEFAULT_ACCENT})` } as CSSProperties;
 }

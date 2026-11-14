@@ -9,13 +9,11 @@ type Props = {
   className?: string;
 };
 
-/** Cover with a fixed ratio (set through className) and an accent-tinted fallback when there is no image. */
+/** Cover with a fixed ratio and radius (set through className, e.g. `aspect-[16/9] sg-media`) and an accent-tinted fallback when there is no image. */
 export default function CoverImage({ src, alt, sizes, priority = false, className = '' }: Props) {
   return (
     <div
-      className={`relative overflow-hidden ${className}`}
-      style={{ background: 'color-mix(in srgb, var(--sg-accent) 10%, white)' }}
-    >
+      className={`sg-cover relative overflow-hidden ${className}`}>
       {src ? (
         <Image
           src={src}
