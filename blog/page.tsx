@@ -6,7 +6,7 @@ import { getMessages } from '../_i18n';
 import BlogIndexView from '../_views/BlogIndexView';
 import { appearanceOf } from '../_lib/appearance';
 import { getArticles } from '../_lib/blog';
-import { getPageParam } from '../_lib/format';
+import { blogIndexTotalPages, blogIndexWindow, getPageParam } from '../_lib/format';
 import { blogPath, getLocale, installPath, matchesLocale, type RouteParams } from '../_lib/locale';
 import { getSite } from '../_lib/site';
 
@@ -32,11 +32,8 @@ export default async function BlogPage({ params, searchParams }: Props) {
   const currentPage = getPageParam((await searchParams).page);
   const site = await getSite();
 
-  const { articles, pagination } = await getArticles({
-    page: currentPage,
-    limit: appearanceOf(site).articles_per_page,
-    locale,
-  });
+  const { limit, offset, perPage } = blogIndexWindow(currentPage, appearanceOf(site).articles_per_page);
+  const { articles, pagination } = await getArticles({ page: currentPage, limit, offset, locale });
 
   // No article in this locale: the empty state under the site language, a 404 under any other.
   if (articles.length === 0 && locale && site && !matchesLocale(site.language, locale)) notFound();
@@ -44,7 +41,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
   return (
     <BlogIndexView
       articles={articles}
-      pagination={pagination}
+      pagination={{ ...pagination, total_pages: blogIndexTotalPages(pagination.total, perPage) }}
       site={site}
       currentPage={currentPage}
       basePath={blogPath(installPath(locale, site))}

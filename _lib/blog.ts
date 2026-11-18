@@ -9,10 +9,13 @@ import { rankRelatedArticles } from './related';
 const MAX_PAGE_SIZE = 50;
 
 export async function getArticles(
-  params: { page?: number; limit?: number; tag?: string; locale?: string } = {}
+  params: { page?: number; limit?: number; offset?: number; tag?: string; locale?: string } = {}
 ): Promise<ArticlesResponse> {
-  const { page = 1, limit = 12, tag, locale } = params;
-  const data = await request<ArticlesResponse>('articles', { locale, params: { page, limit, ...(tag ? { tag } : {}) } });
+  const { page = 1, limit = 12, offset, tag, locale } = params;
+  const data = await request<ArticlesResponse>('articles', {
+    locale,
+    params: { page, limit, ...(offset !== undefined ? { offset } : {}), ...(tag ? { tag } : {}) },
+  });
   return data ?? { articles: [], pagination: { page, limit, total: 0, total_pages: 0 } };
 }
 

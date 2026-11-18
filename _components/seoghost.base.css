@@ -13,6 +13,10 @@
    - The accent is data: --sg-accent is set inline from Settings › Appearance.
      Override it with --seoghost-accent, never with --sg-accent. */
 
+/* Tailwind v3 refuses `@layer components` in a file without the matching directive; Tailwind v4 accepts it and ignores it.
+   Keeps the folder working on both. On v3 there are no cascade layers: see the Tailwind note at the end of the README. */
+@tailwind components;
+
 /* Same order as Tailwind v4, declared here too so it holds when this file loads first. */
 @layer theme, base, components, utilities;
 

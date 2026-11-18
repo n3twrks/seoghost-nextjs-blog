@@ -235,5 +235,7 @@ yet, wrong domain), the 1-hour cache still applies.
   SEOGhost (e.g. `http://localhost:3000` while developing SEOGhost itself). It is
   an address, not a secret, hence the public prefix (secret scanners such as
   Netlify's fail the build on unprefixed variables whose value appears in the repo).
-- The theme relies on Tailwind CSS v4 (`@layer components`) and on `color-mix()`
-  (all current browsers).
+- The theme is written for Tailwind CSS v4 (`@layer components`) and compiles on v3 too
+  (the `@tailwind components;` line at the top of `seoghost.base.css`). Tailwind v3 has no
+  cascade layers: a rule of your theme only wins over the defaults when it loads after them
+  or is more specific. The theme also uses `color-mix()` (all current browsers).
