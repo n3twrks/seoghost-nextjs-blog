@@ -6,7 +6,7 @@ import type { Messages } from '../../_i18n/messages';
 type Props = {
   currentPage: number;
   totalPages: number;
-  /** Path of the listing, e.g. /blog or /blog/tag/guides. */
+  /** Path of the listing, e.g. /blog. */
   basePath: string;
   t: Messages;
 };

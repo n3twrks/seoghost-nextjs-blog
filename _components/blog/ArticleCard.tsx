@@ -26,7 +26,7 @@ export default function ArticleCard({ article, basePath, t }: Props) {
       </Link>
 
       <div className="flex flex-1 flex-col gap-2">
-        <CategoryLink tag={article.tags[0]} basePath={basePath} fallbackLabel={t.defaultCategory} />
+        <CategoryLink tag={article.tags[0]} fallbackLabel={t.defaultCategory} />
         <h3 className="sg-h4">
           <Link href={`${basePath}/${article.slug}`} className="sg-title-link">
             {article.title}

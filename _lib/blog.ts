@@ -2,7 +2,7 @@
 //
 // Blog data from the SEOGhost API. `locale` (the URL locale, if any) keeps
 // the articles of that language only. Server-side only (see api.ts).
-import type { Article, ArticleSummary, ArticlesResponse, TagWithCount } from '../_types/blog';
+import type { Article, ArticleSummary, ArticlesResponse } from '../_types/blog';
 import { request } from './api';
 import { rankRelatedArticles } from './related';
 
@@ -37,10 +37,11 @@ export async function getAllArticles(locale?: string): Promise<ArticleSummary[]>
   return all;
 }
 
-export async function getTags(locale?: string): Promise<TagWithCount[]> {
-  return (await request<{ tags: TagWithCount[] }>('tags', { locale }))?.tags ?? [];
-}
-
+/** Ranked by SEOGhost: same cluster first, then closest in meaning, then newest. The tag ranking is the fallback of an older API. */
 export async function getRelatedArticles(current: Article, locale?: string, limit?: number): Promise<ArticleSummary[]> {
-  return rankRelatedArticles(current, await getAllArticles(locale), limit);
+  const res = await request<{ articles: ArticleSummary[] }>(`articles/${encodeURIComponent(current.slug)}/related`, {
+    locale,
+    params: limit ? { limit } : {},
+  });
+  return res?.articles ?? rankRelatedArticles(current, await getAllArticles(locale), limit);
 }

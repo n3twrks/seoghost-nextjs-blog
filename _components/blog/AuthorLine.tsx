@@ -22,7 +22,7 @@ export default function AuthorLine({ authorName, authorAvatarUrl, date, t }: Pro
           {authorAvatarUrl ? (
             <Image
               src={authorAvatarUrl}
-              alt=""
+              alt={authorName}
               width={24}
               height={24}
               className="sg-avatar h-6 w-6 flex-none"

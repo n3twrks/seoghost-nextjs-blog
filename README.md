@@ -3,7 +3,7 @@
 One folder that serves everything SEOGhost writes for your site, on your own
 domain and inside your own layout:
 
-- **the blog** on `/blog`: articles, tags, table of contents, related articles,
+- **the blog** on `/blog`: articles, table of contents, related articles,
   newsletter sign-up or call to action, and an optional CTA block inside the articles;
 - **the programmatic pages** of every collection, each under its own prefix
   (`/custom-song/for-a-birthday`), with a hub page per collection;
@@ -78,7 +78,7 @@ with your own values (paths, URLs, snippets) already filled in.
 
 6. **Sitemap**: submit `https://yoursite.com/seoghost/sitemap.xml` to Google
    Search Console (one per locale on a multilingual site:
-   `/fr/seoghost/sitemap.xml`…). It lists the blog, its tags and the
+   `/fr/seoghost/sitemap.xml`…). It lists the blog and the
    programmatic pages. Or merge it into your root sitemap instead:
 
    ```ts
@@ -103,7 +103,7 @@ with your own values (paths, URLs, snippets) already filled in.
    }
    ```
 
-Routes: `/blog`, `/blog/<article>`, `/blog/tag/<tag>`, `/<prefix>` (collection
+Routes: `/blog`, `/blog/<article>`, `/<prefix>` (collection
 hub), `/<prefix>/<page>`, `/seoghost/sitemap.xml` and `/seoghost/revalidate`
 (called by SEOGhost only), each under your locale or install path when you have
 one. Your own routes always win over a collection prefix, and SEOGhost refuses the

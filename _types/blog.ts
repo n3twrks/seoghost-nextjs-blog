@@ -1,5 +1,5 @@
 // src/templates/saas/(seoghost)/_types/blog.ts
-// Mirrors the shapes of the SEOGhost articles API (/api/v1/articles, /api/v1/tags).
+// Mirrors the shapes of the SEOGhost articles API (/api/v1/articles).
 
 export type { ArticleCta, ArticleCtaButtonRadius, ArticleCtaColors, NewsletterCtaDesign, Site } from './site';
 
@@ -51,8 +51,4 @@ export type Pagination = {
 export type ArticlesResponse = {
   articles: ArticleSummary[];
   pagination: Pagination;
-};
-
-export type TagWithCount = ArticleTag & {
-  count: number;
 };

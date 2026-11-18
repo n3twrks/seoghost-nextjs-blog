@@ -81,7 +81,7 @@ export default function ArticleView({ article, related, site, basePath, t, previ
 
       <article className="mt-8">
         <header className="mx-auto max-w-5xl text-center">
-          <CategoryLink tag={article.tags[0]} basePath={basePath} fallbackLabel={t.defaultCategory} />
+          <CategoryLink tag={article.tags[0]} fallbackLabel={t.defaultCategory} />
           <h1 className="sg-h1 mt-3">
             {article.title}
           </h1>
@@ -93,7 +93,7 @@ export default function ArticleView({ article, related, site, basePath, t, previ
             {authorName ? (
               <div className="flex items-center gap-3">
                 {authorAvatarUrl ? (
-                  <Image src={authorAvatarUrl} alt="" width={48} height={48} className="sg-avatar h-12 w-12 flex-none" />
+                  <Image src={authorAvatarUrl} alt={authorName} width={48} height={48} className="sg-avatar h-12 w-12 flex-none" />
                 ) : null}
                 <div className="flex flex-col items-start text-left">
                   {authorProfileUrl ? (

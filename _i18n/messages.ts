@@ -21,8 +21,6 @@ export type Messages = {
   latestTitle: string;
   /** Category label shown when an article has no tag. */
   defaultCategory: string;
-  tagPageTitle: (tag: string) => string;
-  tagPageDescription: (tag: string) => string;
   photoBy: string;
   on: string;
   previous: string;

@@ -17,8 +17,6 @@ export const en: Messages = {
   featuredTitle: 'Featured',
   latestTitle: 'Latest articles',
   defaultCategory: 'General',
-  tagPageTitle: (tag) => tag,
-  tagPageDescription: (tag) => `All our articles about ${tag.toLowerCase()}.`,
   photoBy: 'Photo by',
   on: 'on',
   previous: 'Previous',

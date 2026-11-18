@@ -17,8 +17,6 @@ export const fr: Messages = {
   featuredTitle: 'À la une',
   latestTitle: 'Les derniers articles',
   defaultCategory: 'Général',
-  tagPageTitle: (tag) => tag,
-  tagPageDescription: (tag) => `Tous nos articles sur le thème « ${tag} ».`,
   photoBy: 'Photo de',
   on: 'sur',
   previous: 'Précédent',
